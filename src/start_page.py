@@ -4,19 +4,7 @@ import random
 import re
 
 # Import from 3rd party libraries
-from taipy.gui import Gui, notify, navigate
-
-# Import pages
-from pages import home_page, order_page
-
-
-
-# HOME PAGE FUNCTIONS
-
-def nagivate_to_order(state):
-    navigate(state, "order")
-
-# ORDER PAGE FUNCTIONS
+from taipy.gui import Gui, notify
 
 # Configure logger
 logging.basicConfig(format="\n%(asctime)s\n%(message)s", level=logging.INFO, force=True)
@@ -103,18 +91,37 @@ def on_exception(state, function_name: str, ex: Exception):
     notify(state, 'error', f"Problem {ex} \nin {function_name}")
 
 
-# PAGES NAVIGATION
+# Markdown for the entire page
+## <text|
+## |text> 
+## "text" here is just a name given to my part/my section
+## it has no meaning in the code
+page = """
 
-root_md="## UR**Hungry**{:.color-secondary}"
+<|container|
+## UR**Hungry**{: .color-secondary}
 
-pages = {
-    "/": root_md,
-    "home": home_page,
-    "order": order_page
-}
+<br/>
+
+<center><h3>Select from **store**{: .color-secondary}:</h3></center>
+
+<center><|{store}|selector|lov={stores}|dropdown|></center>
+
+<br/>
+
+<center><|Show orders|button|on_action=choose_store|label=Show orders|></center>
+
+<br/>
+
+<center><|{order_selected}|selector|lov={orders}|></center>
+
+<center><|Show order selected|button|on_action=select_order|label=Show order selected|></center>
+
+<center><|{order_tweet}|text|></center>
+
+|>
+"""
+
 
 if __name__ == "__main__":
-    #Core().run()
-    #scenario = tp.create_scenario(scenario_cfg)
-    Gui(pages=pages, css_file = './styling.css').run(use_reloader=True)
-
+    Gui(page=page, css_file='./src/styling.css').run(title='Choose store')

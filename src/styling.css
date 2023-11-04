@@ -5,6 +5,7 @@
 
 :root{
     --color-primary: #E5CCFF;    
+    --color-secondary: #FEDB38 !important; 
     --color-paper-dark: #1B002C;
     --color-background-dark: #1B002C;
     --font-family:'Baloo-Regular', sans-serif;
@@ -25,7 +26,7 @@ body{
 }
 
 .color-secondary{
-    color: var(--yellow);
+    color: var(--color-secondary);
 }
 
 .taipy-button{
