@@ -1,12 +1,5 @@
 #  structure of the data
 
-from hedera import PrivateKey
-prikey = PrivateKey.generate()
-print("Private key: {}".format(prikey.toString()))
-print("Public key: {}".format(prikey.getPublicKey().toString()))
-
-
-
 payment = {
     "card_number" : "1252 2251 2654 1253", # primary key
     "expiry_date" : "07/25",
