@@ -3,6 +3,15 @@
     src: url('./STYLES/Baloo-Regular.ttf');
 }
 
+
+
+
+
+div#root{
+    background-color: var(--color-paper-dark);
+    color: var(--color-primary);
+}
+
 :root{
     --color-primary: #E5CCFF;    
     --color-paper-dark: #1B002C;
