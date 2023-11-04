@@ -3,4 +3,22 @@ import config   # environment variables
 
 
 
-Gui(page = "Getting Started with *Taipy*").run()    # use_reloader=True
+# MAIN PAGE
+home_page = """
+
+#Getting Started with ***ByteBuy***
+
+My text: <|{text}|>
+<|{text}|input|>
+
+"""
+
+
+
+text = "Test Original test"
+
+
+
+Gui(home_page).run(use_reloader=True)
+
+
