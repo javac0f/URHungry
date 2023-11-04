@@ -28,27 +28,40 @@ item = {
 }
 
 order = {
-    "id" : 1154, # primary key
     "order_id" : 1254656,
+    "opener" : "John Doe",
+    "public" : False,
+    "date" : "12/05/2023", # (iterable) date on which the order arrive
+}
+
+items = {
+    "id" : 1154, # primary key
+    "order" : order,
     "user_id" : 1234,
     "store" : store, # store to order from
     "item" : item,
-    "delivery_by_date" : "12/05/2023", # the date by which the order must arrive
 }
 
-
-def pull_order(store, by_date, *orders):
+def pull_order_by_store(store, orders):
     """
     store: the store chosen by the user
-    by_date: 
     orders: a list of orders from the database
     """
-    chosen = []
+    chosen = {}
     for order in orders:
-        if order["store"] == store and order["date"].later(by_date):
-            chosen.append(order)
+        if order["store"] == store:
+            chosen.update(order, order["order"]["date"])
+    return sorted(chosen)    
+
+def pull_order(stores, orders):
+    """
+    stores: all stores are that can be requested
+    orders: a list of orders from the database
+    """
+    chosen = {}
+    for store in stores:
+        chosen.update(store, pull_order_by_store(store, orders)) 
     return chosen
-    
 
 def order_summary(orders):
     # the orders have the same store
@@ -70,4 +83,11 @@ def order_summary(orders):
     display["taxes and fees"] = taxes_and_fees
     return display
 
+
+def list_items(orders):
+    items = [orders["item"]]
+    return [{
+        "item_name" : items["name"],
+        "quantity" : items["quantity"],
+    }]
 
