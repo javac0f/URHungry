@@ -1,5 +1,5 @@
 from taipy import Gui
-from pages import home_page
+from pages import home_page, orderby_page
 
 
 

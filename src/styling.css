@@ -7,13 +7,13 @@
     --color-primary: #E5CCFF;    
     --color-paper-dark: #1B002C;
     --color-background-dark: #1B002C;
-    ---black: "#000000";
-    ---dark_purple: "#1B002C";
-    ---purple: "#26013D";
-    ---yellow: "#FEDB38";
-    ---pink: "#B673EB";
-    ---light_pink: "#E5CCFF";
-    ---white: "#FFFFFF";
+    --black: #000000;
+    --dark_purple: #1B002C;
+    --purple: #26013D;
+    --yellow: #FEDB38;
+    --pink: #B673EB;
+    --light_pink: #E5CCFF;
+    --white: #FFFFFF;
 
 
 
@@ -36,7 +36,7 @@ body{
 }
 
 .color-secondary{
-    color: var(---yellow);
+    color: var(--yellow);
 }
 
 .taipy-button{

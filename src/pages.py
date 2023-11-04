@@ -1,28 +1,33 @@
 home_page = """
-# UR**Hungry**{: .color-secondary}
-
-<|container container-styling
+# UR**Hungry**{:.color-secondary}
 
 
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
 <br/>
 
 <h3 style="text-align: center;">Josh is ordering eggs</h3>
 
 <center><|ORDER|button|class_name = .taipy-button|></center>\n
 
-|>
 
 """
 
 orderby_page = """
-
-<|container|
-
 # UR**Hungry**{: .color-secondary}
 
-<br/>
+<|container container-styling
 
-<h3 style="text-align: center;">Josh is ordering eggs</h3>
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
 
 <center><|ORDER|button|class_name = .taipy-button|></center>\n
 
