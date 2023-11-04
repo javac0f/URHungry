@@ -1,7 +1,7 @@
 home_page = """
+
 # UR**Hungry**{:.color-secondary}
 
-
 <br/>
 <br/>
 <br/>
@@ -9,7 +9,7 @@ home_page = """
 <br/>
 <br/>
 
-<h3 style="text-align: center;">Josh is ordering eggs</h3>
+<h3 style="text-align: center;">{user} is ordering {product}</h3>
 
 <center><|ORDER|button|class_name = .taipy-button|></center>\n
 
@@ -17,7 +17,7 @@ home_page = """
 """
 
 orderby_page = """
-# UR**Hungry**{: .color-secondary}
+# UR**Hungry**{: color-secondary}
 
 <|container container-styling
 
