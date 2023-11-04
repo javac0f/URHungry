@@ -42,7 +42,7 @@ def generate_text(state):
 tweet = ""
 n_requests = 0
 
-store = "Walmart"
+store = "store not chosen"
 
 # Called whever there is a problem
 def on_exception(state, function_name: str, ex: Exception):
@@ -56,31 +56,29 @@ def on_exception(state, function_name: str, ex: Exception):
 ## "text" here is just a name given to my part/my section
 ## it has no meaning in the code
 page = """
-<|container|
+
 # UR**Hungry**{: .color-secondary}
 
 <br/>
 
-<|layout|columns=1 1 1|gap=30px|class_name=card|
+<center>Select from **store**{: .color-secondary}:</center>
 
 <store|
-## Select from **store**{: .color-primary}:
-
-<|{value}|selector|lov=Walmart;Target;Wegmans|dropdown|>
+<center><|{value}|selector|lov=Walmart;Target;Wegmans|dropdown|></center>
 |store>
 
-<|Show orders|button|on_action=generate_text|label=Show orders|>
-|>
 
 <br/>
 
-### Show orders from **selected store**{: .color-primary}
+<center><|Show orders|button|on_action=generate_text|label=Show orders|></center>
 
-<|{tweet}|input|multiline|label=Resulting tweet|class_name=fullwidth|>
+<br/>
 
-|>
+### Show orders from **{store}**{: .color-secondary}
+
+
 """
 
 
 if __name__ == "__main__":
-    Gui(page).run(title='Tweet Generation')
+    Gui(page=page, css_file='./STYLES/styling.css').run(title='Tweet Generation')
