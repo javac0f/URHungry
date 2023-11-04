@@ -1,3 +1,6 @@
+from taipy import Gui
+import config   # environment variables
 
-import config
 
+
+Gui(page = "Getting Started with *Taipy*").run()    # use_reloader=True
