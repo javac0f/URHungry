@@ -1,0 +1,5 @@
+StoreName,MinOrder,MinOrderFee,Deliverable,DeliveryFee
+Wegmans,35,8,True,0
+Walmart,35,7,True,0
+Target,0.01,0,True,10
+Asian Food Market,0.01,0,False,0

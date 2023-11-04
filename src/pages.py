@@ -1,3 +1,6 @@
+root_md="## UR**Hungry**{:.color-secondary}"
+
+
 home_page = """
 
 <br/>
@@ -22,7 +25,7 @@ order_page = """
 
 <center><h3>Select from **store**{: .color-secondary}:</h3></center>
 
-<center><|{store}|selector|lov={stores}|dropdown|></center>
+<center><|{store}|selector|lov={stores_list}|dropdown|></center>
 
 <br/>
 
@@ -30,10 +33,22 @@ order_page = """
 
 <br/>
 
-<center><|{order_selected}|selector|lov={orders}|></center>
+<center><|{order_selected}|selector|lov={orders_list}|></center>
 
 <center><|Show order selected|button|class_name = .taipy-button|on_action=select_order|label=Show order selected|></center>
 
 <center><|{order_tweet}|text|></center>
+
+"""
+
+
+order_detail_page = """
+
+<br/>
+<br/>
+
+<center><h3>Add to **order**{: .color-secondary}:</h3></center>
+
+<center><|Request items|button|class_name = .taipy-button|on_action=confirm_request_items|label=Request items|></center>
 
 """

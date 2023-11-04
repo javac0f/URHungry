@@ -1,0 +1,10 @@
+ID,User,Name,Price,Quantity,OrderID
+00001,Josh,Carrot,3,4,000001
+00002,Josh,Chips,2,1,000001
+00003,Luna,Carrot,3,2,000001
+00004,Luna,Matcha,10,1,000001
+00005,Jared,Carrot,3,1,000001
+00006,Luna,Fish,11,1,000001
+00007,Khanh Le,Detergent,7,2,000002
+00008,Khanh Le,Knife,2,1,000002
+00009,John,Book,4,10,000003

@@ -2,12 +2,17 @@
 import logging
 import random
 import re
+import pandas as pd
 
 # Import from 3rd party libraries
 from taipy.gui import Gui, notify, navigate
 
 # Import pages
-from pages import home_page, order_page
+import pages 
+
+
+
+
 
 
 
@@ -16,7 +21,21 @@ from pages import home_page, order_page
 def nagivate_to_order(state):
     navigate(state, "order")
 
+
+
+
+
+
+
 # ORDER PAGE FUNCTIONS
+
+# Handling data
+stores_df = pd.read_csv("database/stores.csv", index_col="StoreName")
+stores_list = list(stores_df.index)
+
+orders_df = pd.read_csv("database/orders.csv", index_col="ID")
+items_df = pd.read_csv("database/items.csv", index_col="ID")
+
 
 # Configure logger
 logging.basicConfig(format="\n%(asctime)s\n%(message)s", level=logging.INFO, force=True)
@@ -30,6 +49,20 @@ def error_too_many_requests(state):
 
 
 # Define functions
+def sort_by_date_store(store, sort_by_date=True):
+    orders = orders_df
+    orders = orders[orders["StoreName"] == store]
+    items = items_df
+    items["Total"] = items["Price"]*items["Quantity"]
+    orders["MinOrder"] = stores_df["MinOrder"][store]
+    orders["Total"] = items.groupby('OrderID').sum()["Total"]
+    orders["Percentage"] = orders["Total"]/orders["MinOrder"]*100
+    orders["Completion"] = orders["Percentage"].apply(lambda x: 100 if x > 100 else x)
+    orders["Descriptor"] = [f"{date} - {int(comp)}%" for date, comp in zip(orders["OrderDate"], orders["Completion"])]
+    # orders.apply(lambda x: f"{x['OrderDate']} {x['Completion']}%")
+    return [(id, desc) for id, desc in zip(orders.index, orders["Descriptor"])]
+
+
 def choose_store(state):
     """Generate Tweet text."""
     state.tweet = ""
@@ -42,7 +75,7 @@ def choose_store(state):
     # Generate the tweet
     state.n_requests += 1
     state.tweet = f"<h3>Showing orders from {state.store}:</h3>"
-    state.orders = [(k, v) for k, v in state.all_store[state.store].items()]
+    state.orders_list = sort_by_date_store(store=state.store)
 
     # Notify the user in console and in the GUI
     logging.info(
@@ -61,13 +94,14 @@ def select_order(state):
     state.n_requests += 1
     state.order_id = state.order_selected[0]
     state.order_detail = state.order_selected[1]
-    state.order_tweet = f"Select order {state.order_detail} with ID {state.order_id}."
 
     # Notify the user in console and in the GUI
     logging.info(
-        f"Store selected: {state.order_detail}, {state.order_id}"
+        f"Select order {state.order_detail} with ID {state.order_id}."
     )
     notify(state, "success", "Order created!")
+
+    navigate(state, "order_detail")
 
 
 # Variables
@@ -76,7 +110,7 @@ order_tweet = ""
 order_selected = None
 order_id = ""
 order_detail = ""
-orders = []
+orders_list = []
 all_store = {
     "Wegmans": {
         "2332": "October 31 - 100%",
@@ -91,7 +125,6 @@ all_store = {
         "7292": "October 11 - 26%"
     },
 }
-stores = list(all_store.keys())
 
 n_requests = 0
 
@@ -103,14 +136,20 @@ def on_exception(state, function_name: str, ex: Exception):
     notify(state, 'error', f"Problem {ex} \nin {function_name}")
 
 
+
+
+
+
+
+
+
 # PAGES NAVIGATION
 
-root_md="## UR**Hungry**{:.color-secondary}"
-
 pages = {
-    "/": root_md,
-    "home": home_page,
-    "order": order_page
+    "/": pages.root_md,
+    "home": pages.home_page,
+    "order": pages.order_page,
+    "order_detail": pages.order_detail_page
 }
 
 if __name__ == "__main__":
