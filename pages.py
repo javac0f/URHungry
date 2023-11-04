@@ -5,25 +5,26 @@ import taipy as tp
 
 landing_page = """
 
-<|container|
+
 
 # **ByteBuy**
+
 <br/>
 
 
-<|layout|columns = 1| gap = 100 px | class_name = card|
+<|layout|columns = 1|gap = 100 px|class_name = card|
 
 <order|
-<center><|None|button|label=Order an Item|></center>
+<center><|button|label=Order an Item|></center>
 |order>
 
 
 <connect|
-<center><|None|button|label=Connect to Others Nearby|></center>
+<center><|button|label=Connect to Others Nearby|></center>
 |connect>
 
 <about|
-<center><|ABOUT|button|label=Our Story|></center>
+<center><|button|label=Our Story|></center>
 |about>
 
 
@@ -36,8 +37,8 @@ landing_page = """
 ###
 
 
-
 |>
+
 """
 
 grocery_page = """
