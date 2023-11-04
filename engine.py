@@ -1,24 +1,9 @@
-from taipy import Gui
-import config   # environment variables
-
-
-
-# MAIN PAGE
-home_page = """
-
-#Getting Started with ***ByteBuy***
-
-My text: <|{text}|>
-<|{text}|input|>
-
-"""
-
-
-
-text = "Test Original test"
-
-
-
-Gui(home_page).run(use_reloader=True)
-
+import taipy as tp 
+import landing_page as l_pg
+'''
+RUNNING IT ALL
+'''
+if __name__ == "__main__":
+    tp.Gui(page = l_pg.landing_page,
+           css_file='styling.css').run(use_reloader=True)
 

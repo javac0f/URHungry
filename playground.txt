@@ -1,0 +1,7 @@
+    ---black: "000000";
+    ---dark_purple: "1B002C";
+    ---purple: "26013D";
+    ---yellow: "FEDB38";
+    ---pink: "B673EB";
+    ---light_pink: "E5CCFF";
+    ---white: "FFFFFF";
