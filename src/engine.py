@@ -3,8 +3,6 @@ from pages import home_page
 
 
 
-
-
 if __name__ == "__main__":
     #Core().run()
     #scenario = tp.create_scenario(scenario_cfg)

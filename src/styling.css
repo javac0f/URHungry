@@ -3,14 +3,28 @@
     src: url('./Baloo-Regular.ttf');
 }
 
-
 :root{
     --color-primary: #E5CCFF;    
     --color-paper-dark: #1B002C;
     --color-background-dark: #1B002C;
+    ---black: "#000000";
+    ---dark_purple: "#1B002C";
+    ---purple: "#26013D";
+    ---yellow: "#FEDB38";
+    ---pink: "#B673EB";
+    ---light_pink: "#E5CCFF";
+    ---white: "#FFFFFF";
+
+
+
     --font-family:'Baloo-Regular', sans-serif;
     --custom-scrollbar-thumb-color: var(--color-primary);
     --border-radius: 32px;
+}
+.css-7g81c7 {
+    -webkit-box-flex: 1;
+    flex-grow: 1;
+    background-color: var(--color-paper-dark);
 }
 
 body{
@@ -19,6 +33,10 @@ body{
 
 .card{
     background-color: var(--color-paper-dark);
+}
+
+.color-secondary{
+    color: var(---yellow);
 }
 
 .taipy-button{
