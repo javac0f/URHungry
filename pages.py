@@ -1,71 +1,28 @@
 import taipy as tp
+from taipy import Gui
+from taipy.gui import Markdown, Html
 
 
 
 
-landing_page = """
 
 
 
-# **ByteBuy**
+home_page = """
 
-<br/>
-
-
-<|layout|columns = 1|gap = 100 px|class_name = card|
-
-<order|
-<center><|button|label=Order an Item|></center>
-|order>
+<|container|
+#*URHungry*
 
 
-<connect|
-<center><|button|label=Connect to Others Nearby|></center>
-|connect>
-
-<about|
-<center><|button|label=Our Story|></center>
-|about>
+<|layout|columns=1|class_name=layout|
 
 
-<br/>
+<center><|ORDER|button|class_name = .taipy-button|></center>\n
+<center><|ABOUT|button|class_name = taipy-button|></center>\n
+<center><|Yo MAMMA|button|class_name = taipy-button|></center>\n
 
----
-
-<br/>
-
-###
-
-
+|>
 |>
 
 """
-
-grocery_page = """
-
-        #*Input Grocery*
-
-        <|"Grocery:"|input|>
-        <|submit|button|on_action=submit_scenario|>
-
-
-
-"""
-
-
-
-
-def on_button_action(state):
-    tp.notify(state, 'info', f'The text is: {state.text}')
-    state.text = "Button Pressed"
-
-def on_change(state, var_name, var_value):
-    if var_name == "text" and var_value == "Reset":
-        state.text = ""
-        return
-    
-def submit_scenario(state):
-    state.scenario.input_name.write(state.input_name)
-    state.scenario.submit(wait=True)
-    state.message = tp.scenario.message.read()
 

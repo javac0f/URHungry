@@ -13,28 +13,6 @@
 }
 
 
-body{
-    background-color: var(--color-paper-dark);
-    color: var(--color-primary);
-    border-radius: var(--border-radius);
-}
-
-.jsx-parser{
-    background-color: var(--color-paper-dark);
-    color: var(--color-primary);
-}
-
-
-.taipy-container{
-    background-color: var(--color-paper-dark);
-    color: var(--color-primary);
-    border-radius: var(--border-radius);
-}
-
-.taipy-navbar{
-    background-color: var(--color-paper-dark);
-    color: var(--color-primary);
-}
 
 .taipy-button{
     background-color: var(--color-primary);
