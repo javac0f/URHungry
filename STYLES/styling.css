@@ -1,0 +1,30 @@
+@font-face {
+    font-family: 'Baloo-Regular';
+    src: url('./STYLES/Baloo-Regular.ttf');
+}
+
+:root{
+    --color-primary: #E5CCFF;    
+    --color-paper-dark: #1B002C;
+    --color-background-dark: #1B002C;
+    --font-family:'Baloo-Regular', sans-serif;
+    --custom-scrollbar-thumb-color: var(--color-primary);
+    --border-radius: 32px
+}
+
+
+
+.taipy-button{
+    background-color: var(--color-primary);
+    border: none;
+    color: var(--color-paper-dark);
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: var(--border-radius);
+}
+
+
