@@ -1,21 +1,3 @@
-import taipy as tp
-import config   # environment variables
-
-'''
-CREATING OUR LANDING PAGE
-'''
-start_page = """
-
-# Data **Visualization**{: .color-primary}     
-
-<|ORDER|button|class_name=button|on_action=go_order>
-
-"""
-
-
-
-
-
 # Import from standard library
 import logging
 import random
@@ -28,11 +10,6 @@ from taipy.gui import Gui, notify
 logging.basicConfig(format="\n%(asctime)s\n%(message)s", level=logging.INFO, force=True)
 
 
-def error_prompt_flagged(state, prompt):
-    """Notify user that a prompt has been flagged."""
-    notify(state, "error", "Prompt flagged as inappropriate.")
-    logging.info(f"Prompt flagged as inappropriate: {prompt}")
-
 def error_too_many_requests(state):
     """Notify user that too many requests have been made."""
     notify(state, "error", "Too many requests. Please wait a few seconds before generating another text or image.")
@@ -44,108 +21,28 @@ def error_too_many_requests(state):
 def generate_text(state):
     """Generate Tweet text."""
     state.tweet = ""
-    state.image = None
 
     # Check the number of requests done by the user
     if state.n_requests >= 5:
         error_too_many_requests(state)
         return
-
-    # Check if the user has put a topic
-    if state.topic == "":
-        notify(state, "error", "Please enter a topic")
-        return
-
-    # Create the prompt and add a style or not
-    if state.style == "":
-        state.prompt = (
-            f"Write a {state.mood}Tweet about {state.topic} in less than 120 characters "
-            f"and with the style of {state.style}:\n\n\n\n"
-        )
-    else:
-        state.prompt = f"Write a {state.mood}Tweet about {state.topic} in less than 120 characters:\n\n"
-
-
-    # openai configured and check if text is flagged
-    openai = oai.Openai()
-    flagged = openai.moderate(state.prompt)
     
-    if flagged:
-        error_prompt_flagged(state, f"Prompt: {state.prompt}\n")
-        return
-    else:
-        # Generate the tweet
-        state.n_requests += 1
-        state.tweet = (
-            openai.complete(state.prompt).strip().replace('"', "")
-        )
+    # Generate the tweet
+    state.n_requests += 1
+    state.tweet = f"Showing orders from {state.store}:"
 
-        # Notify the user in console and in the GUI
-        logging.info(
-            f"Topic: {state.prompt}{state.mood}{state.style}\n"
-            f"Tweet: {state.tweet}"
-        )
-        notify(state, "success", "Tweet created!")
-
-
-def generate_image(state):
-    """Generate Tweet image."""
-    notify(state, "info", "Generating image...")
-
-    # Check the number of requests done by the user
-    if state.n_requests >= 5:
-        error_too_many_requests(state)
-        return
-
-    state.image = None
-
-    # Creates the prompt
-    prompt_wo_hashtags = re.sub("#[A-Za-z0-9_]+", "", state.prompt)
-    processing_prompt = (
-        "Create a detailed but brief description of an image that captures "
-        f"the essence of the following text:\n{prompt_wo_hashtags}\n\n"
+    # Notify the user in console and in the GUI
+    logging.info(
+        f"Store selected: {state.tweet}"
     )
-
-    # Openai configured and check if text is flagged
-    openai = oai.Openai()
-    flagged = openai.moderate(processing_prompt)
-
-    if flagged:
-        error_prompt_flagged(state, processing_prompt)
-        return
-    else:
-        state.n_requests += 1
-        # Generate the prompt that will create the image
-        processed_prompt = (
-            openai.complete(
-                prompt=processing_prompt, temperature=0.5, max_tokens=40
-            )
-            .strip()
-            .replace('"', "")
-            .split(".")[0]
-            + "."
-        )
-
-        # Generate the image
-        state.image = openai.image(processed_prompt)
-
-        # Notify the user in console and in the GUI
-        logging.info(f"Tweet: {state.prompt}\nImage prompt: {processed_prompt}")
-        notify(state, "success", f"Image created!")
-
-
+    notify(state, "success", "Order created!")
 
 
 # Variables
 tweet = ""
-prompt = ""
 n_requests = 0
 
-topic = "AI"
-mood = "inspirational"
-style = "elonmusk"
-
-image = None
+store = "Walmart"
 
 # Called whever there is a problem
 def on_exception(state, function_name: str, ex: Exception):
@@ -160,57 +57,27 @@ def on_exception(state, function_name: str, ex: Exception):
 ## it has no meaning in the code
 page = """
 <|container|
-# **Generate**{: .color-primary} Tweets
-
-This mini-app generates Tweets using OpenAI's GPT-3 based [Davinci model](https://beta.openai.com/docs/models/overview) for texts and [DALL·E](https://beta.openai.com/docs/guides/images) for images. You can find the code on [GitHub](https://github.com/Avaiga/demo-tweet-generation) and the original author on [Twitter](https://twitter.com/kinosal).
+# UR**Hungry**{: .color-secondary}
 
 <br/>
 
 <|layout|columns=1 1 1|gap=30px|class_name=card|
-<topic|
-## **Topic**{: .color-primary} (or hashtag)
 
-<|{topic}|input|label=Topic (or hashtag)|>
-|topic>
+<store|
+## Select from **store**{: .color-primary}:
 
-<mood|
-## **Mood**{: .color-primary}
+<|{value}|selector|lov=Walmart;Target;Wegmans|dropdown|>
+|store>
 
-<|{mood}|input|label=Mood (e.g. inspirational, funny, serious) (optional)|>
-|mood>
-
-<style|
-## Twitter **account**{: .color-primary}
-
-<|{style}|input|label=Twitter account handle to style-copy recent Tweets (optional)|>
-|style>
-
-<|Generate text|button|on_action=generate_text|label=Generate text|>
+<|Show orders|button|on_action=generate_text|label=Show orders|>
 |>
 
 <br/>
 
----
-
-<br/>
-
-### Generated **Tweet**{: .color-primary}
+### Show orders from **selected store**{: .color-primary}
 
 <|{tweet}|input|multiline|label=Resulting tweet|class_name=fullwidth|>
 
-<center><|Generate image|button|on_action=generate_image|label=Generate image|active={prompt!="" and tweet!=""}|></center>
-
-<image|part|render={prompt != "" and tweet != "" and image is not None}|class_name=card|
-### **Image**{: .color-primary} from Dall-e
-
-<center><|{image}|image|height=400px|></center>
-|image>
-
-<br/>
-
-**Code from [@kinosal](https://twitter.com/kinosal)**
-
-Original code can be found [here](https://github.com/kinosal/tweet)
 |>
 """
 
