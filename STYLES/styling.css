@@ -4,19 +4,16 @@
 }
 
 
-
-
-
 div#root{
-    background-color: var(--color-paper-dark);
+    background-color: var(--color-background-dark) !important;
     color: var(--color-primary);
 }
 
 :root{
-    --color-primary: #E5CCFF;    
-    --color-secondary: #FEDB38;
-    --color-paper-dark: #1B002C;
-    --color-background-dark: #1B002C;
+    --color-primary: #E5CCFF !important;    
+    --color-secondary: #FEDB38 !important; 
+    --color-paper-dark: #580ca4;
+    --color-background-dark: #1B002C !important;
     --font-family:'Baloo-Regular', sans-serif;
     --custom-scrollbar-thumb-color: var(--color-primary);
     --border-radius: 32px
