@@ -4,7 +4,6 @@ root_md="## UR**Hungry**{:.color-secondary}"
 
 
 home_page = """
-
 <br/>
 <br/>
 <br/>
@@ -14,7 +13,7 @@ home_page = """
 
 <center><h3>Start ordering **now**{: .color-secondary}!</h3></center>
 
-<center><|ORDER|button|class_name = .taipy-button|on_action=nagivate_to_order|></center>\n
+<center><|ORDER|button|class_name = .taipy-button|on_action=navigate_to_order|></center>\n
 
 """
 
@@ -52,6 +51,32 @@ order_page = """
 <center><|Start new order|button|class_name = .taipy-serious-button|on_action=create_new_order|label=Start new order|></center>
 
 """
+
+order_page_v2 = """
+
+<br/>
+
+<center><h3>Select from **STORE**{: .color-secondary}:</h3></center>
+
+<center><|{store}|selector|lov={stores}|dropdown|></center>
+
+<br/>
+
+<center><|Show orders|button|on_action=choose_store|label=Show orders|></center>
+
+<br/>
+
+<center><|{order_selected}|selector|dropdown=True|lov={orders}|></center>
+
+<center><|Show order selected|button|on_action=select_order|label=Show order selected|></center>
+
+<center><|{order_tweet}|text|></center>
+
+
+"""
+
+
+
 
 
 order_detail_page = """
