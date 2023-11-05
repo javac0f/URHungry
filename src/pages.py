@@ -2,7 +2,7 @@
 root_md="""
 ## UR**Hungry**{:.color-secondary}
 <center>
-<|navbar|lov={[("home_page", "Order"), ("trends_page","Trends"),("https://www.wegmans.com/", "Wegmans"),("https://www.walmart.com/", "Walmart"), ("https://www.yelp.com/menu/international-food-market-and-cafe-rochester-5", "International Food Market")]}|>
+<|navbar|lov={[("home", "Order"), ("trend","Trends"),("https://www.wegmans.com/", "Wegmans"),("https://www.walmart.com/", "Walmart"), ("https://www.yelp.com/menu/international-food-market-and-cafe-rochester-5", "International Food Market")]}|>
 </center>
 """
 
@@ -15,7 +15,7 @@ home_page = """
 <br/>
 <br/>
 
-<center><h3>Start ordering **now**{: .color-secondary}!</h3></center>
+<center><h3>Start ordering with friends **now**{: .color-secondary}!</h3></center>
 
 <center><|ORDER|button|class_name = .taipy-button|on_action=navigate_to_order|></center>\n
 
@@ -48,6 +48,8 @@ order_page = """
 
 <center><|{order_selected}|selector|lov={orders_list}|width=700|class_name=.taipy-selector|></center>
 
+<br/>
+
 <center><|Show Selectedd Shopping List|button|class_name = .taipy-button|on_action=select_order|label=Show order selected|></center>
 
 <br/>
@@ -64,11 +66,8 @@ order_detail_page = """
 
 <center><h3>Add to **order**{: .color-secondary}:</h3></center>
 
-<br/>
-
 <center><|{order_detail_description}|text|></center>
 
-<br/>
 <br/>
 
 <|layout|columns=1 1|gap=30px|class_name=card|
@@ -87,16 +86,14 @@ order_detail_page = """
 <center><|{item_quantity}|input|label=Item quantity|></center>
 |item_quantity>
 
+<br/>
+
 <center><|Add item|button|class_name = .taipy-button|on_action=add_item_to_order|label=Add item|></center>
 
 |>
 
 <|
-
-<center><|{item_delete_selected}|selector|lov={new_item_list_dropdown}|></center>
-
-<center><|Delete item|button|class_name = .taipy-button|on_action=delete_item_from_order|label=Delete item|></center>
-
+<|{food_df}|table|columns={food_df.columns}|on_delete=food_df_on_delete|show_all|>
 
 |>
 
@@ -105,5 +102,36 @@ order_detail_page = """
 <br/>
 
 <center><|Request items|button|class_name = .taipy-button|on_action=confirm_request_items|label=Request items|></center>
+
+"""
+
+
+trend_page = """
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<center><h3>Inspecting the **trends**{: .color-secondary} around this neighborhood...</h3></center>
+
+
+"""
+
+
+order_success_page = """
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<center><h3>Order **succeeded!**{: .color-secondary}</h3></center>
+
+<center><|RETURN|button|class_name = .taipy-button|on_action=navigate_to_order|></center>\n
+
+
 
 """

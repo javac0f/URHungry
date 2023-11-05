@@ -216,7 +216,19 @@ item_quantity = ""
 new_item_list = []
 new_item_list_dropdown = []
 
-item_delete_selected = ""
+food_df = pd.DataFrame({
+    "Item" : [],
+    "Price" : [],
+    "Quantity" : [],
+})
+
+item_delete_selected = None
+
+def food_df_on_delete(state, var_name, payload):
+    index = payload["index"] # row index
+ 
+    state.food_df = state.food_df.drop(index=index)
+    notify(state, "success", f"Item is deleted!")
 
 def append_item(new_item_list):
     # items_df.loc[len(items_df.index)+1] = new_item_list
@@ -249,11 +261,18 @@ def add_item_to_order(state):
         state.order_id,
     ]
 
-    new_item_descriptor = f"{state.item_name}, {state.item_price}, {state.item_quantity}"
+    new_item_descriptor = f"{state.item_name} at ${state.item_price} x{state.item_quantity}"
+
+    new_row = pd.DataFrame({
+        "Item" : [state.item_name],
+        "Price" : [state.item_price],
+        "Quantity" : [state.item_quantity],
+    })
+    state.food_df = pd.concat([new_row, state.food_df], axis=0, ignore_index=True)
 
     # Using append to add the list to DataFrame
     state.new_item_list.append(new_item)
-    state.new_item_list_dropdown.append(new_item_descriptor)
+    state.new_item_list_dropdown.append((0, new_item_descriptor))
     
     state.item_name = ""
     state.item_price = ""
@@ -268,7 +287,7 @@ def add_item_to_order(state):
 
 def delete_item_from_order(state):
     # Check if the user has selected an order
-    if state.item_delete_selected == "":
+    if state.item_delete_selected == None:
         notify(state, "error", "Please select an item to delete")
         return
 
@@ -288,13 +307,13 @@ def delete_item_from_order(state):
 
 def confirm_request_items(state):
     # check if empty
-    if len(state.new_item_list) == 0:
+    if len(state.food_df) == 0:
         notify(state, "error", "Please add at least 1 item.")
         return
 
-    append_item(state.new_item_list)
+    # append_item(state.new_item_list)
 
-    print(items_df)
+    # print(items_df)
 
     # Notify the user in console and in the GUI
     logging.info(
@@ -302,15 +321,20 @@ def confirm_request_items(state):
     )
     notify(state, "success", "Succeeded in adding items!")
 
+    navigate(state, "order_success")
+
+
 
 
 # PAGES NAVIGATION
 
 pages = {
     "/": pages.root_md,
-    "home/": pages.home_page,
-    "order/": pages.order_page,
-    "order_detail/": pages.order_detail_page,
+    "home": pages.home_page,
+    "order": pages.order_page,
+    "order_detail": pages.order_detail_page,
+    "order_success": pages.order_success_page,
+    "trend": pages.trend_page
 }
 
 stylekit = {
