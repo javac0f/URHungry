@@ -42,4 +42,16 @@ body{
     border-radius: var(--border-radius);
 }
 
+.taipy-serious-button{
+    background-color: var(--color-secondary);
+    border: none;
+    color: var(--color-paper-dark);
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: var(--border-radius);
+}
 
