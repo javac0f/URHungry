@@ -6,7 +6,7 @@
 :root{
     --color-primary: #E5CCFF;    
     --color-secondary: #FEDB38 !important; 
-    --color-paper-dark: #1B002C;
+    --color-paper-dark: #1b002b;
     --color-background-dark: #1B002C;
     --font-family:'Baloo-Regular', sans-serif;
     --custom-scrollbar-thumb-color: var(--color-primary);
@@ -17,16 +17,32 @@
     background-color: var(--color-paper-dark);
 }
 
-body{
-    background-color: var(--color-paper-dark);
+
+.color-secondary{
+    color: var(--color-secondary);
 }
 
 .card{
     background-color: var(--color-paper-dark);
 }
 
-.color-secondary{
-    color: var(--color-secondary);
+.taipy-jsx{
+    background-color: var(--color-paper-dark);
+    color:var(--color-primary)
+}
+
+.taipy-dark{
+    background-color: var(--color-paper-dark);
+}
+
+.taipy-navbar{
+    background-color: var(--color-paper-dark);
+    color: var(--color-primary)
+}
+
+.taipy-selector{
+    background-color: var(--color-paper-dark);
+    color: var(--color-primary)
 }
 
 .taipy-button{

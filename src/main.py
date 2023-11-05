@@ -6,20 +6,23 @@ import re
 # Import from 3rd party libraries
 from taipy.gui import Gui, notify
 
-from pages import home_page, order_detail_page,order_page
+from pages import home_page, order_detail_page,order_page, order_page_v2
+
 
 # Configure logger
 logging.basicConfig(format="\n%(asctime)s\n%(message)s", level=logging.INFO, force=True)
 
 
+
+
+
+# FUNCTIONS
 def error_too_many_requests(state):
     """Notify user that too many requests have been made."""
     notify(state, "error", "Too many requests. Please wait a few seconds before generating another text or image.")
     logging.info(f"Session request limit reached: {state.n_requests}")
     state.n_requests = 1
 
-
-# Define functions
 def choose_store(state):
     """Generate Tweet text."""
     state.tweet = ""
@@ -65,16 +68,24 @@ def confirm_request_items(state):
 def navigate_to_order(state):
     pass
 
+# Called whever there is a problem
+def on_exception(state, function_name: str, ex: Exception):
+    logging.error(f"Problem {ex} \nin {function_name}")
+    notify(state, 'error', f"Problem {ex} \nin {function_name}")
 
 
 
-# Variables
+# VARIABLES
 tweet = ""
-order_tweet = ""
-order_selected = None
-order_id = ""
-order_detail = ""
+
 orders = []
+order_id = ""
+order_tweet = ""
+order_detail = ""
+order_selected = None
+
+n_requests = 0
+store = "store not chosen"
 all_store = {
     "Wegmans": {
         "2332": "October 31 - 100%",
@@ -91,14 +102,6 @@ all_store = {
 }
 stores = list(all_store.keys())
 
-n_requests = 0
-
-store = "store not chosen"
-
-# Called whever there is a problem
-def on_exception(state, function_name: str, ex: Exception):
-    logging.error(f"Problem {ex} \nin {function_name}")
-    notify(state, 'error', f"Problem {ex} \nin {function_name}")
 
 
 # Markdown for the entire page
@@ -107,48 +110,17 @@ def on_exception(state, function_name: str, ex: Exception):
 ## "text" here is just a name given to my part/my section
 ## it has no meaning in the code
 
-
-
 root_md = """
 <center>\n<|navbar|>\n</center>
 ## UR**Hungry**{: .color-secondary}
 """
 
-
-page = """
-<|container|
-
-<br/>
-
-<center><h3>Select from **store**{: .color-secondary}:</h3></center>
-
-<center><|{store}|selector|lov={stores}|dropdown|></center>
-
-<br/>
-
-<center><|Show orders|button|on_action=choose_store|label=Show orders|></center>
-
-<br/>
-
-<center><|{order_selected}|selector|lov={orders}|></center>
-
-<center><|Show order selected|button|on_action=select_order|label=Show order selected|></center>
-
-<center><|{order_tweet}|text|></center>
-
-|>
-"""
-
-
-
-
-
 pages = {
     "/": root_md,
     "home":home_page,
-    "order":page,
+    "order":order_page_v2,
     "details": order_detail_page,
 }
 
 if __name__ == "__main__":
-    Gui(pages=pages, css_file='./src/styling.css').run(title='Choose store')
+    Gui(pages=pages, css_file='./styling.css').run(title='URHungry')

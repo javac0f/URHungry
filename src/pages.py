@@ -39,6 +39,32 @@ order_page = """
 
 """
 
+order_page_v2 = """
+
+<br/>
+
+<center><h3>Select from **STORE**{: .color-secondary}:</h3></center>
+
+<center><|{store}|selector|lov={stores}|dropdown|></center>
+
+<br/>
+
+<center><|Show orders|button|on_action=choose_store|label=Show orders|></center>
+
+<br/>
+
+<center><|{order_selected}|selector|dropdown=True|lov={orders}|></center>
+
+<center><|Show order selected|button|on_action=select_order|label=Show order selected|></center>
+
+<center><|{order_tweet}|text|></center>
+
+
+"""
+
+
+
+
 
 order_detail_page = """
 
