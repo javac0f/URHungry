@@ -2,7 +2,6 @@ root_md="## UR**Hungry**{:.color-secondary}"
 
 
 home_page = """
-
 <br/>
 <br/>
 <br/>
@@ -12,7 +11,7 @@ home_page = """
 
 <center><h3>**Josh**{:.color-secondary} is ordering from **Wegmans**{:.color-secondary}</h3></center>
 
-<center><|ORDER|button|class_name = .taipy-button|on_action=nagivate_to_order|></center>\n
+<center><|ORDER|button|class_name = .taipy-button|on_action=navigate_to_order|></center>\n
 
 """
 
@@ -22,7 +21,6 @@ order_page = """
 
 <br/>
 <br/>
-
 <center><h3>Select from **store**{: .color-secondary}:</h3></center>
 
 <center><|{store}|selector|lov={stores_list}|dropdown|></center>

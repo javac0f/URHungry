@@ -6,6 +6,8 @@ import re
 # Import from 3rd party libraries
 from taipy.gui import Gui, notify
 
+from pages import home_page, order_detail_page,order_page
+
 # Configure logger
 logging.basicConfig(format="\n%(asctime)s\n%(message)s", level=logging.INFO, force=True)
 
@@ -57,6 +59,14 @@ def select_order(state):
     )
     notify(state, "success", "Order created!")
 
+def confirm_request_items(state):
+    pass
+
+def navigate_to_order(state):
+    pass
+
+
+
 
 # Variables
 tweet = ""
@@ -96,10 +106,17 @@ def on_exception(state, function_name: str, ex: Exception):
 ## |text> 
 ## "text" here is just a name given to my part/my section
 ## it has no meaning in the code
-page = """
 
-<|container|
+
+
+root_md = """
+<center>\n<|navbar|>\n</center>
 ## UR**Hungry**{: .color-secondary}
+"""
+
+
+page = """
+<|container|
 
 <br/>
 
@@ -123,5 +140,15 @@ page = """
 """
 
 
+
+
+
+pages = {
+    "/": root_md,
+    "home":home_page,
+    "order":page,
+    "details": order_detail_page,
+}
+
 if __name__ == "__main__":
-    Gui(page=page, css_file='./src/styling.css').run(title='Choose store')
+    Gui(pages=pages, css_file='./src/styling.css').run(title='Choose store')
