@@ -18,7 +18,7 @@ import pages
 
 # HOME PAGE FUNCTIONS
 
-def nagivate_to_order(state):
+def navigate_to_order(state):
     navigate(state, "order")
 
 
@@ -60,7 +60,7 @@ def sort_by_date_store(store, sort_by_date=True):
 
     # get all order with this store name 
     orders = orders[orders["StoreName"] == store]
-    items = items_df
+    items = items_df.copy()
     items["Total"] = items["Price"]*items["Quantity"]
     orders["MinOrder"] = stores_df["MinOrder"][store]
 
@@ -86,6 +86,11 @@ def choose_store(state):
         error_too_many_requests(state)
         return
     
+    # Check if the user has put a store name
+    if state.store == "":
+        notify(state, "error", "Please select a store")
+        return
+
     # Generate the order list
     state.n_requests += 1
     state.orders_list = sort_by_date_store(store=state.store)
@@ -125,7 +130,7 @@ def create_new_order(state):
     state.more_money = state.min_price
 
     # set up the description for next page 
-    state.order_detail_description = f"Order is at ${current_order_price}. Order needs ${more_money} to reach the minimum order price of ${min_price}."
+    state.order_detail_description = f"Order is at ${state.current_order_price}. Order needs ${state.more_money} to reach the minimum order price of ${state.min_price}."
 
 
     # Notify the user in console and in the GUI
@@ -140,6 +145,11 @@ def create_new_order(state):
 def select_order(state):
     # Check if the user has put a name
     if state.user_name == "":
+        notify(state, "error", "Please enter a name")
+        return
+
+    # Check if the user has selected an order
+    if state.order_selected == None:
         notify(state, "error", "Please enter a name")
         return
 
@@ -166,8 +176,7 @@ def select_order(state):
         state.more_money = 0
 
     # set up the description for next page 
-    state.order_detail_description = f"Order is at ${current_order_price}. Order needs ${more_money} to reach the minimum order price of ${min_price}."
-
+    state.order_detail_description = f"Order is at ${state.current_order_price}. Order needs ${state.more_money} to reach the minimum order price of ${state.min_price}."
 
     # Notify the user in console and in the GUI
     logging.info(
@@ -215,7 +224,14 @@ item_name = ""
 item_price = ""
 item_quantity = ""
 
-def append_item(new_item):
+new_item_list = []
+new_item_list_dropdown = []
+
+item_delete_selected = ""
+
+def append_item(new_item_list):
+    # items_df.loc[len(items_df.index)+1] = new_item_list
+    # items_df.append
     items_df = items_df.append(pd.DataFrame([new_item], columns=items_df.columns), ignore_index=True)
 
 
@@ -225,11 +241,30 @@ def add_item_to_order(state):
         notify(state, "error", "Please enter all the fields needed.")
         return
 
+    state.n_requests += 1
+
     # New list for append into DataFrame
-    new_item = [state.user_name, state.item_name, state.item_price, state.item_quantity, state.order_id]
+    # new_item = {
+    #     "User" : state.user_name, 
+    #     "Name" : state.item_name, 
+    #     "Price" : state.item_price, 
+    #     "Quantity" : state.item_quantity, 
+    #     "OrderID" : state.order_id,
+    # }
+
+    new_item = [
+        state.user_name, 
+        state.item_name, 
+        state.item_price, 
+        state.item_quantity, 
+        state.order_id,
+    ]
+
+    new_item_descriptor = f"{state.item_name}, {state.item_price}, {state.item_quantity}"
 
     # Using append to add the list to DataFrame
-    append_item(new_item)
+    state.new_item_list.append(new_item)
+    state.new_item_list_dropdown.append(new_item_descriptor)
     
     state.item_name = ""
     state.item_price = ""
@@ -237,12 +272,46 @@ def add_item_to_order(state):
 
     # Notify the user in console and in the GUI
     logging.info(
-        new_item
+        new_item_list_dropdown
     )
     notify(state, "success", "New item added!")
 
 
+def delete_item_from_order(state):
+    # Check if the user has selected an order
+    if state.item_delete_selected == "":
+        notify(state, "error", "Please select an item to delete")
+        return
 
+    # Select the order
+    state.n_requests += 1
+
+    delete_index = state.new_item_list_dropdown.index(state.item_delete_selected)
+    del state.new_item_list_dropdown[delete_index]
+    del state.new_item_list[delete_index]
+
+    # Notify the user in console and in the GUI
+    logging.info(
+        state.new_item_list
+    )
+    notify(state, "success", "Selected item deleted!")
+
+
+def confirm_request_items(state):
+    # check if empty
+    if len(state.new_item_list) == 0:
+        notify(state, "error", "Please add at least 1 item.")
+        return
+
+    append_item(state.new_item_list)
+
+    print(items_df)
+
+    # Notify the user in console and in the GUI
+    logging.info(
+        state.new_item_list
+    )
+    notify(state, "success", "Succeeded in adding items!")
 
 
 

@@ -42,7 +42,7 @@ order_page = """
 
 <center><|{store_description}|text|></center>
 
-<center><|{order_selected}|selector|lov={orders_list}|></center>
+<center><|{order_selected}|selector|lov={orders_list}|width=700|class_name=.taipy-selector|></center>
 
 <center><|Show order selected|button|class_name = .taipy-button|on_action=select_order|label=Show order selected|></center>
 
@@ -51,31 +51,6 @@ order_page = """
 <center><|Start new order|button|class_name = .taipy-serious-button|on_action=create_new_order|label=Start new order|></center>
 
 """
-
-order_page_v2 = """
-
-<br/>
-
-<center><h3>Select from **STORE**{: .color-secondary}:</h3></center>
-
-<center><|{store}|selector|lov={stores}|dropdown|></center>
-
-<br/>
-
-<center><|Show orders|button|on_action=choose_store|label=Show orders|></center>
-
-<br/>
-
-<center><|{order_selected}|selector|dropdown=True|lov={orders}|></center>
-
-<center><|Show order selected|button|on_action=select_order|label=Show order selected|></center>
-
-<center><|{order_tweet}|text|></center>
-
-
-"""
-
-
 
 
 
@@ -93,28 +68,37 @@ order_detail_page = """
 <br/>
 <br/>
 
-<|layout|columns=1 1 1|gap=30px|class_name=card|
+<|layout|columns=1 1|gap=30px|class_name=card|
+
+<|
 
 <item_name|
-<|{item_name}|input|label=Item name|>
+<center><|{item_name}|input|label=Item name|></center>
 |item_name>
 
 <item_price|
-<|{item_price}|input|label=Item price|>
+<center><|{item_price}|input|label=Item price|></center>
 |item_price>
 
 <item_quantity|
-<|{item_quantity}|input|label=Item quantity|>
+<center><|{item_quantity}|input|label=Item quantity|></center>
 |item_quantity>
-
-|>
-
-<br/>
-<br/>
 
 <center><|Add item|button|class_name = .taipy-button|on_action=add_item_to_order|label=Add item|></center>
 
-<br/>
+|>
+
+<|
+
+<center><|{item_delete_selected}|selector|lov={new_item_list_dropdown}|></center>
+
+<center><|Delete item|button|class_name = .taipy-button|on_action=delete_item_from_order|label=Delete item|></center>
+
+
+|>
+
+|>
+
 <br/>
 
 <center><|Request items|button|class_name = .taipy-button|on_action=confirm_request_items|label=Request items|></center>

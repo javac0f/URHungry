@@ -7,7 +7,7 @@
     --color-primary: #E5CCFF;    
     --color-secondary: #FEDB38 !important; 
     --color-paper-dark: #1b002b;
-    --color-background-dark: #1B002C;
+    --color-background-dark: #470a6d;
     --font-family:'Baloo-Regular', sans-serif;
     --custom-scrollbar-thumb-color: var(--color-primary);
     --border-radius: 32px;
@@ -56,6 +56,13 @@
     margin: 4px 2px;
     cursor: pointer;
     border-radius: var(--border-radius);
+}
+
+.taipy-selector{
+    background-color: var(--color-background-dark);
+    color: var(--color-primary);
+    width: 720px;
+    text-align: left;
 }
 
 .taipy-serious-button{
