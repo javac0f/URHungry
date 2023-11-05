@@ -22,10 +22,6 @@ def navigate_to_order(state):
     navigate(state, "order")
 
 
-
-
-
-
 # ORDER PAGE FUNCTIONS
 
 # Handling data
@@ -212,14 +208,7 @@ def on_exception(state, function_name: str, ex: Exception):
 
 
 
-
-
-
-
-
-
 # ORDER DETAIL PAGE
-
 item_name = ""
 item_price = ""
 item_quantity = ""
@@ -319,13 +308,20 @@ def confirm_request_items(state):
 
 pages = {
     "/": pages.root_md,
-    "home": pages.home_page,
-    "order": pages.order_page,
-    "order_detail": pages.order_detail_page
+    "home/": pages.home_page,
+    "order/": pages.order_page,
+    "order_detail/": pages.order_detail_page,
+}
+
+stylekit = {
+    "color_primary": "#E5CCFF",
+    "color_secondary": "#C0FFE",
+    "color-paper-dark": "#1b002b",
+    "color-background-dark": "#1B002C",
 }
 
 if __name__ == "__main__":
     #Core().run()
     #scenario = tp.create_scenario(scenario_cfg)
-    Gui(pages=pages, css_file = './styling.css').run(use_reloader=True)
+    Gui(pages=pages, css_file = './styling.css').run(use_reloader=True, title='URHungry',stylekit=stylekit)
 

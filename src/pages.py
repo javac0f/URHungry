@@ -1,6 +1,10 @@
 #  markdown element of the pages
-
-root_md="## UR**Hungry**{:.color-secondary}"
+root_md="""
+## UR**Hungry**{:.color-secondary}
+<center>
+<|navbar|lov={[("home_page", "Order"), ("trends_page","Trends"),("https://www.wegmans.com/", "Wegmans"),("https://www.walmart.com/", "Walmart"), ("https://www.yelp.com/menu/international-food-market-and-cafe-rochester-5", "International Food Market")]}|>
+</center>
+"""
 
 
 home_page = """
@@ -32,7 +36,7 @@ order_page = """
 
 <center><h3>... is ordering from **store**{: .color-secondary}:</h3></center>
 
-<center><|{store}|selector|lov={stores_list}|dropdown|></center>
+<center><|{store}|label=store|selector|lov={stores_list}|dropdown|></center>
 
 <br/>
 
@@ -44,14 +48,13 @@ order_page = """
 
 <center><|{order_selected}|selector|lov={orders_list}|width=700|class_name=.taipy-selector|></center>
 
-<center><|Show order selected|button|class_name = .taipy-button|on_action=select_order|label=Show order selected|></center>
+<center><|Show Selectedd Shopping List|button|class_name = .taipy-button|on_action=select_order|label=Show order selected|></center>
 
 <br/>
 
-<center><|Start new order|button|class_name = .taipy-serious-button|on_action=create_new_order|label=Start new order|></center>
+<center><|Create new Shopping List|button|class_name = .taipy-serious-button|on_action=create_new_order|label=Start new order|></center>
 
 """
-
 
 
 order_detail_page = """
