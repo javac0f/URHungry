@@ -1,6 +1,8 @@
 # UR_Hungry
 Dandyhacks 2023-24
 
+![DandyHacks URHungry 2023](https://github.com/javac0f/URHungry/assets/72944083/ec5ba4b4-6c69-452b-b1e6-258da7060853)
+
 ## Inspiration
 
 Tired of missing out on free shipping deals because your individual orders fall short of the minimum requirement? URHungry is here to simplify the lives of campus students! Our user-friendly website allows students to merge their orders with fellow classmates, helping them collectively meet the minimum price requirement for free shipping on popular grocery stores like Wegmans, Walmart, Target and more. No more hungry nights waiting for groceries, we got you! 
