@@ -122,5 +122,15 @@ pages = {
     "details": order_detail_page,
 }
 
+
+stylekit = {
+
+    "color_primary": "#E5CCFF",
+    "color_secondary": "#C0FFE",
+    "color-paper-dark": "#1b002b",
+    "color-background-dark": "#1B002C",
+
+}
+
 if __name__ == "__main__":
-    Gui(pages=pages, css_file='./styling.css').run(title='URHungry')
+    Gui(pages=pages, css_file='./styling.css').run(title='URHungry', stylekit=stylekit)
